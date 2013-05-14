@@ -1,0 +1,12 @@
+#newFunction {
+    opacity: 1;
+    border: 1px solid black;
+    width: 500px;
+    min-height: 400px;
+}
+
+#content {
+    height: 400px;
+    background-image: url('/images/recipe-default-l.png');
+    background-size: 100% 100%;
+}

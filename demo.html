@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
+        <title>Demo</title>
+    </head>
+    <body>
+        <div id='newFunction'>
+            <div id='content'></div>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/user-feedback.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        window.onload = function() {
+            new UserFeedback({
+                target: document.getElementById("newFunction"),
+                initTmpl: "<div>您喜歡這個功能嗎？<button class='feeling' data-feeling='Like'>喜歡</button></div>",
+                finalTmpl: "<div>謝謝您的支持與鼓勵。</div>",
+                fadeOut: false,
+                appendMethod: "before"
+            });
+            new UserFeedback({
+                target: document.getElementById("newFunction"),
+                initTmpl: "<div>您喜歡這個功能嗎？<button class='feeling' data-feeling='Like'>喜歡</button><button class='feeling' data-feeling='Dislike'>不喜歡</button></div>",
+                finalTmpl: "<div>您的支持與鼓勵是我們成長的動力</div>",
+                easing: function(t, b, c, d) {
+                    t /= d;
+                    return c*t*t + b;
+                }
+            });
+            new UserFeedback({
+                target: document.getElementById("newFunction"),
+                initTmpl: "<div>這是新功能歐~！</div>",
+                appendMethod: "append"
+            });
+            new UserFeedback({
+                target: document.getElementById("newFunction"),
+                initTmpl: "<div>您喜歡這個功能嗎？<button class='feeling' data-feeling='Like'>喜歡</button><button class='feeling' data-feeling='Dislike'>不喜歡</button></div>",
+                appendMethod: "after",
+                fadeOut: false,
+                finalTmpl: function(target) {
+                    var dataFeeling = $(target).attr("data-feeling"),
+                        tmpl = '';
+                    switch(dataFeeling) {
+                        case "Like":
+                            tmpl = "謝謝您的支持！";
+                            break;
+                        case "Dislike":
+                            tmpl = "<button id='suggestion'>建議</button>";
+                            break;
+                    }
+                    return tmpl;
+                },
+                onClick: function() {
+                    $("#suggestion").on("click", function() {
+                        prompt("聯絡我們：");
+                    });
+                }
+            });
+        };
+    </script>
+</html>
